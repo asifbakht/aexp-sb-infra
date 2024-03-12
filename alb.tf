@@ -57,8 +57,14 @@ resource "aws_lb_target_group" "payment_service_target_group" {
   target_type = "ip"
   vpc_id      = aws_vpc.main_network.id
   health_check {
-    matcher = "200,301,302"
-    path    = "/api/v1/payment/health"
+    matcher             = "200,301,302"
+    path                = "/api/v1/payment/actuator/health"
+    healthy_threshold   = 4
+    unhealthy_threshold = 5
+    timeout             = 6
+    interval            = 60
+    protocol            = "HTTP"
+    port                = "traffic-port"
   }
 }
 
