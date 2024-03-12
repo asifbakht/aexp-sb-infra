@@ -48,11 +48,24 @@ resource "aws_security_group" "ecs_tasks_sg" {
 }
 
 resource "aws_security_group" "rds_access_sg" {
+  name   = "rds-sg"
   vpc_id = aws_vpc.main_network.id
 
   ingress {
     from_port       = var.payment_db_port
     to_port         = var.payment_db_port
+    protocol        = "tcp"
+    security_groups = [aws_security_group.ecs_tasks_sg.id]
+  }
+}
+
+resource "aws_security_group" "redis_access_sg" {
+  name   = "redis-sg"
+  vpc_id = aws_vpc.main_network.id
+
+  ingress {
+    from_port       = 6379
+    to_port         = 6379
     protocol        = "tcp"
     security_groups = [aws_security_group.ecs_tasks_sg.id]
   }
