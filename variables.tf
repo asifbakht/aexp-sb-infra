@@ -27,9 +27,6 @@ variable "fargate_memory" {
   default = "1024"
 }
 
-variable "ecs_autoscale_role" {
-  default = "arn:aws:iam::719699785587:role/ecsAutoscaleRole"
-}
 
 variable "min_capacity" {
   default = "1"
