@@ -16,6 +16,7 @@ resource "aws_db_instance" "payment_db" {
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
   vpc_security_group_ids = [aws_security_group.rds_access_sg.id]
   skip_final_snapshot    = true
+  multi_az               = true
 }
 
 resource "aws_elasticache_subnet_group" "redis_subnet_group" {
